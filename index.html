@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IX ETHEREUM CONNECTOR</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <script type="module" crossorigin src="/assets/index-yGHyhj4G.js"></script>
+  </head>
+  <body>
+    <script>
+      function bindings(newDoc) {
+        try {
+          newDoc.contentWindow.window.open = function (
+            url,
+            name,
+            features,
+            replace
+          ) {
+            window.open(url, name, features, replace);
+          };
+        } catch (e) {
+          console.log(e.message);
+        }
+      }
+    </script>
+    <div class="container"></div>
+    <div id="app"></div>
+  </body>
+</html>
