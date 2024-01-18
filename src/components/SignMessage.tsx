@@ -4,7 +4,7 @@ import { recoverMessageAddress } from "@intellax/ix-ethereum-connector/viem";
 
 export function SignMessage() {
   const [recoveredAddress, setRecoveredAddress] = React.useState("");
-  const { data, error, isLoading, signMessage, variables } = useSignMessage();
+  const { data, error, signMessage, variables, status } = useSignMessage();
 
   React.useEffect(() => {
     (async () => {
@@ -55,9 +55,7 @@ export function SignMessage() {
         {error && <pre>{error.message}</pre>}
         <div className="field mt-3">
           <div className="control">
-            <button className="button" disabled={isLoading}>
-              {isLoading ? "Check Wallet" : "Sign Message"}
-            </button>
+            <button className="button">{"Sign Message"}</button>
           </div>
         </div>
       </form>

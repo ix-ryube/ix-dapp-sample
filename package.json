@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@intellax/ix-ethereum-connector": "0.3.16",
+    "@intellax/ix-ethereum-connector": "2.0.0",
+    "@tanstack/react-query": "5.17.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

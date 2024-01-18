@@ -1,13 +1,11 @@
 import { Connect } from "./components/Connect";
-import { ixConnector } from "./ixConnector";
+import { SendTx } from "./components/SendTx";
 import { SignMessage } from "./components/SignMessage";
 import { SwitchChain } from "./components/SwitchChain";
-import { SendTx } from "./components/SendTx";
-import { WagmiConfig } from "@intellax/ix-ethereum-connector/wagmi";
 
 export function App() {
   return (
-    <WagmiConfig config={ixConnector.wagmiConfig}>
+    <>
       <div className="hero-body">
         <div className="container">
           <div className="bd-hero-body">
@@ -37,7 +35,6 @@ export function App() {
           <SwitchChain />
         </section>
       </div>
-    </WagmiConfig>
+    </>
   );
 }
-export { ixConnector };

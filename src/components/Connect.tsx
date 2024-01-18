@@ -5,30 +5,9 @@ import {
 } from "@intellax/ix-ethereum-connector/wagmi";
 
 export function Connect() {
-  const {
-    connector: activeConnector,
-    isConnected,
-    address,
-  } = useAccount({
-    onConnect: (p) => {
-      console.log("onConnect", { p });
-      if (p.connector) {
-        p.connector.getProvider().then((provider) => {
-          console.log("provider", { chainID: provider.chainId });
-        });
+  const { connector: activeConnector, isConnected, address } = useAccount();
 
-        p.connector.getChainId().then((chainId) => {
-          console.log("chainId", { chainId });
-        });
-      }
-    },
-    onDisconnect: () => {
-      console.log("onDisconnect");
-    },
-  });
-
-  const { connect, connectors, error, isLoading, pendingConnector } =
-    useConnect();
+  const { connect, connectors, error, status } = useConnect();
   const { disconnect, reset } = useDisconnect();
 
   return (
@@ -73,15 +52,15 @@ export function Connect() {
             return (
               <button
                 className="card-footer-item"
-                disabled={!connector.ready}
                 key={connector.id}
+                disabled={status === "pending"}
                 onClick={() => {
                   connect({ connector });
                 }}
               >
                 {connector.name}
-                {isLoading &&
-                  pendingConnector?.id === connector.id &&
+                {status === "pending" &&
+                  activeConnector?.id === connector.id &&
                   " (connecting)"}
               </button>
             );
