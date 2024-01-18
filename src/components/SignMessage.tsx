@@ -4,7 +4,7 @@ import { recoverMessageAddress } from "@intellax/ix-ethereum-connector/viem";
 
 export function SignMessage() {
   const [recoveredAddress, setRecoveredAddress] = React.useState("");
-  const { data, error, signMessage, variables, status } = useSignMessage();
+  const { data, error, signMessage, variables } = useSignMessage();
 
   React.useEffect(() => {
     (async () => {
