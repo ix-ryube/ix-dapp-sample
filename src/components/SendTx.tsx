@@ -1,8 +1,10 @@
-import { parseEther } from "@intellax/ix-ethereum-connector/viem";
-import { useSendTransaction } from "@intellax/ix-ethereum-connector/wagmi";
+import { parseEther } from "viem";
+import { useSendTransaction, useWalletClient } from "wagmi";
 
 export function SendTx() {
   const { data, isSuccess, sendTransaction, status } = useSendTransaction();
+
+  const {} = useWalletClient();
   return (
     <div className="field my-5">
       <label className="label"> Send Transaction</label>

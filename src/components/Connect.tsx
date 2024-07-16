@@ -1,15 +1,48 @@
 import {
   useAccount,
+  useAccountEffect,
+  useClient,
   useConnect,
   useDisconnect,
-} from "@intellax/ix-ethereum-connector/wagmi";
+} from "wagmi";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
+
+import { useEffect } from "react";
 
 export function Connect() {
-  const { connector: activeConnector, isConnected, address } = useAccount();
-
-  const { connect, connectors, error, status } = useConnect();
+  const {
+    connector: activeConnector,
+    isConnected,
+    address,
+    status: accountSatatus,
+  } = useAccount();
+  const client = useClient();
+  const { connect, connectors, error, status, data } = useConnect();
   const { disconnect, reset } = useDisconnect();
+  const { open } = useWeb3Modal();
+  useAccountEffect({
+    onConnect(data) {
+      console.log("Connected!", data);
+      data.connector.getProvider().then((provider) => {
+        console.log("provider", provider);
+      });
+    },
+    onDisconnect() {
+      console.log("Disconnected!");
+    },
+  });
+  useEffect(() => {
+    console.log("client", { client, data, activeConnector, isConnected });
+  }, [client, data, activeConnector, isConnected]);
 
+  useEffect(() => {
+    console.log("activeConnector", { activeConnector, accountSatatus });
+    if (activeConnector?.getProvider) {
+      activeConnector.getProvider().then((provider) => {
+        console.log("activeConnector provider", provider);
+      });
+    }
+  }, [activeConnector, accountSatatus]);
   return (
     <div className="card my-5">
       <header className="card-header">
@@ -33,6 +66,7 @@ export function Connect() {
           <div className="media-content">
             <p className="title is-4">Connected to {activeConnector?.name}</p>
             <p className="subtitle is-6">Address: {address}</p>
+            {status && <p className="help is-info">{status}</p>}
             {error && <p className="help is-error">{error.message}</p>}
           </div>
         </div>
@@ -55,7 +89,11 @@ export function Connect() {
                 key={connector.id}
                 disabled={status === "pending"}
                 onClick={() => {
-                  connect({ connector });
+                  if (connector.name === "WalletConnect") {
+                    open();
+                  } else {
+                    connect({ connector });
+                  }
                 }}
               >
                 {connector.name}

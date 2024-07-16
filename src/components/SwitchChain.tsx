@@ -1,7 +1,4 @@
-import {
-  useChainId,
-  useSwitchChain,
-} from "@intellax/ix-ethereum-connector/wagmi";
+import { useChainId, useSwitchChain } from "wagmi";
 
 export function SwitchChain() {
   const chainId = useChainId();
@@ -14,11 +11,10 @@ export function SwitchChain() {
         {/* {chain && <p>Connected to {chain.name}</p>} */}
         <div className="field is-grouped">
           {chains.map((chain) => (
-            <div className="control">
+            <div className="control" key={chain.id}>
               <button
                 className="button is-primary"
                 disabled={chain.id === chainId || status === "pending"}
-                key={chain.id}
                 onClick={() => switchChain({ chainId: chain.id })}
               >
                 {chain.name}
