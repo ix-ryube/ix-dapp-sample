@@ -1,9 +1,12 @@
+import { useAccount } from "wagmi";
+import { Approve } from "./components/Approve";
 import { Connect } from "./components/Connect";
 import { SendTx } from "./components/SendTx";
 import { SignMessage } from "./components/SignMessage";
 import { SwitchChain } from "./components/SwitchChain";
 
 export function App() {
+  const { address } = useAccount();
   return (
     <>
       <div className="hero-body">
@@ -33,6 +36,8 @@ export function App() {
           <SignMessage />
           <SendTx />
           <SwitchChain />
+          {!address && <p>Connect to a wallet to see more features</p>}
+          {address && <Approve address={address} />}
         </section>
       </div>
     </>

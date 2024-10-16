@@ -1,4 +1,5 @@
 import { IxEthereumConnector } from "@intellax/ix-ethereum-connector";
+import { polygonAmoy } from "viem/chains";
 
 export const ixConnector = new IxEthereumConnector({
   projectId: "45f7be8d476b33df86ee81745c666090",
@@ -10,6 +11,7 @@ export const ixConnector = new IxEthereumConnector({
   web3ModalOptions: {
     allWallets: "HIDE",
   },
+  chains: [polygonAmoy],
   walletConnectMetadata: {
     name: "IX CONNECTOR TEST DAPP",
     description: "IX CONNECTOR TEST DAPP",
