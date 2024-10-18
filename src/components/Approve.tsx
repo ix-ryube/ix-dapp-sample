@@ -7,7 +7,7 @@ import {
   writeContract,
 } from "wagmi/actions";
 import { ixConnector } from "../ixConnector";
-import { formatEther, parseEther } from "viem";
+import { formatEther, maxUint256, parseEther } from "viem";
 import { useState } from "react";
 
 const CONTRACT: { [key: string]: `0x${string}` } = {
@@ -85,7 +85,7 @@ export function Approve({ address }: { address: `0x${string}` }) {
                         abi: erc20,
                         address: CONTRACT.TOKEN,
                         functionName: "approve",
-                        args: [spender, tokenAmount],
+                        args: [spender, maxUint256],
                       }
                     );
 
